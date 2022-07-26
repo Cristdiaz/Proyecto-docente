@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rails: MyString
+  g: MyString
+  scaffold: MyString
+  Curso: MyString
+  grado: MyString
+  letra: MyString
+  usuario: one
+
+two:
+  rails: MyString
+  g: MyString
+  scaffold: MyString
+  Curso: MyString
+  grado: MyString
+  letra: MyString
+  usuario: two

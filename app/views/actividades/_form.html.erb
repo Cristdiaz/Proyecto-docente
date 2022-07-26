@@ -1,0 +1,52 @@
+<%= form_with(model: actividad) do |form| %>
+  <% if actividad.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(actividad.errors.count, "error") %> prohibited this actividad from being saved:</h2>
+
+      <ul>
+        <% actividad.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :rails, style: "display: block" %>
+    <%= form.text_field :rails %>
+  </div>
+
+  <div>
+    <%= form.label :g, style: "display: block" %>
+    <%= form.text_field :g %>
+  </div>
+
+  <div>
+    <%= form.label :scaffold, style: "display: block" %>
+    <%= form.text_field :scaffold %>
+  </div>
+
+  <div>
+    <%= form.label :Curso, style: "display: block" %>
+    <%= form.text_field :Curso %>
+  </div>
+
+  <div>
+    <%= form.label :grado, style: "display: block" %>
+    <%= form.text_field :grado %>
+  </div>
+
+  <div>
+    <%= form.label :letra, style: "display: block" %>
+    <%= form.text_field :letra %>
+  </div>
+
+  <div>
+    <%= form.label :usuario_id, style: "display: block" %>
+    <%= form.text_field :usuario_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,203 @@
+
+
+########### CREAR PROYECTO Y SUS TABLAS ##########
+
+=======
+
+1. Crear proyecto:
+rails new ProyectoDocente
+cd ProyectoDocente
+
+2. En config/initializers/inflections.rb pegamos el código de GitHub para programar en español.
+
+3. Incluir la gem "devise" en Gemfile siguiendo todos sus pasos.
+bundle
+rails g devise:install
+Pegar el link en config/environments/initializers/inflections.rb
+Pegar en layouts/application.html.erb 2 link para devise
+rails g devise:views
+
+4. En views/layouts/application.html.erb incluir el link de Bootstrap para CSS y Java
+
+__________________
+
+
+5. Creamos tablas de  Usuario con devise:
+
+rails g devise Usuario nombre:integer telefono:string direccion:string
+rails g model Rol cargo:string 
+rails g migration CreateJoinTablaUsuarioRol usuario rol
+
+5. Revisamos las migraciones
+rails db:migrate
+
+6. En los modelos revisar que todo esté bien, y sus relaciones, HABTM:
+
+rol.rb:
+class Rol < ApplicationRecord
+  has_and_belongs_to_many :roles
+end
+
+__________________
+
+7. Crear tabla Curso, Actividad y Estudiante:
+
+rails g scaffold Curso grado:string usuario:references
+
+rails g scaffold Actividad evento:string fecha:string curso:string
+materiales:string usuario:references
+
+ACTIVIDADES: 
+reunion
+material
+lectura
+horario
+evaluacion
+taller
+actividad_extracurricular
+
+rails g model Estudiante nombre:string curso:references usuario:references
+
+Revisar las migraciones. 
+rails db:migrate
+
+8. Hacer las relaciones HABTM.
+
+models/actividad.rb
+class Actividad < ApplicationRecord
+    belongs_to :curso      
+end
+
+models/curso.rb
+class Curso < ApplicationRecord
+  belongs_to :docente, class_name: "Usuario" 
+  has_many :estudiantes
+  has_many :actividades
+end
+
+models/estudiante.rb
+class Estudiante < ApplicationRecord
+  belongs_to :curso
+  belongs_to :apoderado, class_name: "Usuario"
+end
+
+models/usuario.rb
+class Usuario < ApplicationRecord
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+         
+  has_and_belongs_to_many :roles
+  has_many :estudiantes
+end
+
+__________________
+
+9. Agregamos la capa de seguridad con los filtros de los controllers a cargo de esas views.
+En este caso es app/controllers/actividades_controller.erb y cursos_controllers.rb
+
+before_action :authenticate_usuario!
+
+Los before pueden ser ilimitados. Si queremos agregar otras vistas de usuario,
+además de solo usuario, por ejemplo como administrador, solo cambiamos el nombre.
+
+
+__________________
+
+10. Revisamos las rutas:
+Para hacer el controller de inicio que nos faltaba de los pasos de devise:
+rails g controller home index
+
+Rails.application.routes.draw do
+  resources :actividades
+  resources :cursos
+  devise_for :usuarios
+ 
+  root to: "home#index"
+end
+
+Vamos a app/views/ y creamos la carpeta home, en ella creamos un archivo index.html.erb
+Y en app/controllers/ también creamos un archivo home_controller.rb y en él incluímos:
+
+class HomeController < ApplicationController
+  def index
+  end
+end
+
+y luego en el navbar del home agregamos:
+<nav>
+  <ul>
+    <li> <%= link_to "Primera vista", root_path %> </li>
+    <li> <%= link_to "Segunda vista", '/pages/two' %> </li>
+    <li> <%= link_to "Tercera vista", '/pages/three' %> </li>
+  </ul>
+</nav>
+__________________
+
+11. Agregar un navbar con bootstrap:
+En app/views/layouts/application.html.erb   Copiamos el link de Bootstrap
+
+Crear un parcial de navbar _navbar.html.erb
+Ahí pegamos el navbar que elegimos de bootstrap
+
+Luego en app/views/layouts/application.html.erb hacemos un rails con después de la etiqueta de apertura de body:
+  <%= render 'layouts/navbar' %>
+Esto remitirá a navbar.
+=======
+  has_many :roles
+end
+
+>>>>>>> 934a2cc18eed2f3041885a74b43d88b95af4b61a
+
+
+
+
+
+<<<<<<< HEAD
+PARA AGREGARLE A CURSOS Y CONECTARLO A ACTIVIDADES:
+<div class="field">
+  <%= form.label :categorias %>
+    <%= form.collection_check_boxes :categoria_ids, Categoria.all,
+    :id, :nombre do |b| %>
+  <%= b.check_box + b.text %> 
+</div>
+
+app/controllers/productos_controller.rb
+
+class ProductosController < ApplicationController
+ before_action :set_producto, only: %i[ show edit update destroy ]
+
+...
+# Only allow a list of trusted parameters through.
+    def producto_params
+      params.require(:producto).permit(:nombre, :descripcion, :stock, :precio, :sku, categoria_ids: [])
+    end
+
+
+__________________
+ 
+ ALMACENAR DATOS PRE-CARGADOS CON SEED:
+
+1. En el archivo db/seeds.rb escribir el siguiente código:
+
+Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each { |seed| load seed }
+
+Y esto para desturir cuando lo requiramos las tablas:
+Curso.destroy_all
+Actividad.destroy_all
+Usuario.delete_all
+
+2. En carpeta db/ creamos la carpeta seeds, y en ella creamos los archivos para cada uno de nuestros modelos
+que requieran datos pre-cargados:
+
+db/seeds/actividades.rb
+
+
+
+db/seeds/cursos.rb
+db/seeds/usuarios.rb
+
+
+
+
+=======
+>>>>>>> 934a2cc18eed2f3041885a74b43d88b95af4b61a
