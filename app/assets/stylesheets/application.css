@@ -15,14 +15,118 @@
  */
 
 body {
-    background-color: rgb(231, 214, 157);
+    background-color: rgb(247, 238, 206);
 }
 
+/*sección navbar*/
 .barra {
-    background-color: rgb(69, 31, 8);
+    background-color: rgba(242, 197, 99, 0.912);
+     /* posición fija */
+     width: 100vw;
+     /* que abarque todo el ancho */
+     z-index: 1;
+    /* que esté por encima del hero section */
+    padding-left: 8em;
+    padding: 1em; 
+    font-size: 25px;
+    
 }
 
 .barra a {
     color: #fff;
+}
+
+.ingreso {
+    background-color: rgba(239, 189, 81, 0.912);
+    text-decoration: none;
+    text-align: center;
+}
+
+
+
+ /*  font-weight: 700;
+    grosor de letra */
+
+
+
+
+
+/* Hero */
+header {
+    /*background-image: url(https://jiconax.com/wp/wp-content/uploads/2021/04/Powtoon_Screenshot-21-1-1024x576.jpg);*/
+    /*(https://s3.amazonaws.com/s3.timetoast.com/public/uploads/photo/13451122/image/af28f05e3bd12405d9aaf81ddc11da04)*/
+    background-image: url(https://image.freepik.com/vector-gratis/colorida-textura-acuarela_1048-3187.jpg);
+     background-position: center;
+    background-repeat: no-repeat;
+  
+    display: inline-block;
+    ;
+
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: right;  
+    color: #fff;
+
+    padding-top: 52px;
+    padding-bottom: 80px;
+    padding-right: 180px;
+}
+
+.titulo  {
+    font-size: 3.2em;
+}
+
+.subtitulo {
+    font-size: 2em;
+    font-weight: lighter;
+}
+
+
+
+/*Carrusel*/
+
+.item {
+    width: 500px;
+    height: 700px;
+}
+
+.row {
+    margin-left: 90px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* footer */
+footer {
+    background-color: rgb(112, 48, 9);
+}
+
+.brands {
+    color: #fff;
+    font-size: 40px;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.final {
+    text-align: center;
+    color: #fff;
+    padding-bottom: 10px;
+    font-size: 25px;
 }
 
