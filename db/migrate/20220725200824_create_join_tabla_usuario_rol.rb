@@ -1,10 +1,8 @@
 class CreateJoinTablaUsuarioRol < ActiveRecord::Migration[7.0]
   def change
-    create_table :joines_tablas_usuario_rol do |t|
-      t.string :usuario
-      t.string :rol
-
-      t.timestamps
+    create_join_table :roles, :usuarios do |t| #corregir
+      t.index :usuario
+      t.index :rol
     end
   end
 end

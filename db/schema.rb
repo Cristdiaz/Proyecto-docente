@@ -13,11 +13,12 @@
 ActiveRecord::Schema[7.0].define(version: 2022_07_25_201608) do
   create_table "actividades", force: :cascade do |t|
     t.string "evento"
-    t.string "curso"
+    t.integer "curso_id", null: false
     t.string "materiales"
     t.integer "usuario_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["curso_id"], name: "index_actividades_on_curso_id"
     t.index ["usuario_id"], name: "index_actividades_on_usuario_id"
   end
 
@@ -39,17 +40,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_201608) do
     t.index ["usuario_id"], name: "index_estudiantes_on_usuario_id"
   end
 
-  create_table "joines_tablas_usuario_rol", force: :cascade do |t|
-    t.string "usuario"
-    t.string "rol"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string "cargo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "roles_usuarios", id: false, force: :cascade do |t|
+    t.integer "rol_id", null: false
+    t.integer "usuario_id", null: false
+    t.index "\"rol\"", name: "index_roles_usuarios_on_rol"
+    t.index "\"usuario\"", name: "index_roles_usuarios_on_usuario"
   end
 
   create_table "usuarios", force: :cascade do |t|
@@ -67,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_201608) do
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "actividades", "cursos"
   add_foreign_key "actividades", "usuarios"
   add_foreign_key "cursos", "usuarios"
   add_foreign_key "estudiantes", "cursos"
